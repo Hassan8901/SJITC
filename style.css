@@ -1,0 +1,90 @@
+/* ===== GENERAL ===== */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #39d8f8;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    width: 90%;
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+h1, h2, h3 {
+    text-align: center;
+    color: #333;
+}
+/* ===== FORMS ===== */
+input, select, button, textarea {
+    display: block;
+    width: 100%;
+    padding: 10px 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+button {
+    background-color: #34ecf9;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+button:hover {
+    background-color: #2bffff;
+}
+/* ===== TABLES ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+th {
+    background-color: #2afff4;
+}
+/* ===== TABS ===== */
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+.tabBtn {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    border-bottom: 3px solid transparent;
+    background: none;
+    transition: 0.3s;
+}
+.tabBtn.active {
+    border-bottom: 3px solid #39e5ff;
+    font-weight: bold;
+}
+/* ===== UPLOAD SECTIONS ===== */
+#adminUploads {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background-color: #fafafa;
+}
+#adminUploads h3 {
+    margin-bottom: 5px;
+}
+#adminUploads input[type="file"] {
+    margin-bottom: 10px;
+}
+/* ===== HIDDEN ===== */
+.hidden {
+    display: none;
+}

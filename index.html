@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SJIT Management System</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginSection" class="container">
+    <h1>SJIT Management System</h1>
+    <form id="loginForm">
+        <select id="userType" required>
+            <option value="">Select User Type</option>
+            <option value="admin">Admin</option>
+            <option value="student">Student</option>
+            <option value="staff">Staff</option>
+        </select>
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+    <p style="text-align:center">Don’t have an account? <a href="#" id="goToSignUp">Sign up</a></p>
+</div>
+
+<!-- SIGN-UP -->
+<div id="signupSection" class="container hidden">
+    <h1>Sign Up</h1>
+    <form id="signupForm">
+        <select id="signupType" required>
+            <option value="">Select Role</option>
+            <option value="student">Student</option>
+            <option value="staff">Staff</option>
+        </select>
+        <input type="text" id="signupUsername" placeholder="Choose Username" required>
+        <input type="password" id="signupPassword" placeholder="Choose Password" required>
+        <button type="submit">Register</button>
+    </form>
+    <p style="text-align:center">Already have an account? <a href="#" id="goToLogin">Login</a></p>
+</div>
+
+<!-- ADMIN ACCOUNT -->
+<div id="adminAccount" class="hidden container">
+    <h2>Admin Account</h2>
+    <button onclick="logout()">Logout</button>
+
+    <div id="adminUploads">
+        <h3>Upload Notes</h3>
+        <input type="file" id="uploadNotes">
+        <button onclick="saveFile('notes')">Upload</button>
+        <hr>
+
+        <h3>Upload Homework</h3>
+        <input type="file" id="uploadHomework">
+        <button onclick="saveFile('homework')">Upload</button>
+        <hr>
+
+        <h3>Upload Timetable</h3>
+        <input type="file" id="uploadTimetable">
+        <button onclick="saveFile('timetable')">Upload</button>
+        <hr>
+
+        <h3>Upload Exam Reports</h3>
+        <input type="file" id="uploadExamReport">
+        <button onclick="saveFile('examReport')">Upload</button>
+        <hr>
+    </div>
+</div>
+
+<!-- STUDENT Account -->
+<div id="studentAccount" class="hidden container">
+    <h2>Student Account</h2>
+    <button onclick="logout()">Logout</button>
+    <div id="viewFiles">
+        <h3>Notes</h3><div id="studentNotes">Loading...</div>
+        <h3>Homework</h3><div id="studentHomework">Loading...</div>
+        <h3>Timetable</h3><div id="studentTimetable">Loading...</div>
+        <h3>Exam Reports</h3><div id="studentExamReport">Loading...</div>
+    </div>
+</div>
+
+
+<!-- STAFF ACCOUNT -->
+<div id="staffAccount" class="hidden container">
+    <h2>Staff Account</h2>
+    <button onclick="logout()">Logout</button>
+
+    <!-- ATTENDANCE -->
+    <div id="staffAttendance">
+        <h3>Mark Attendance</h3>
+        <select id="attendanceLevel" onchange="loadCourses()">
+            <option value="">Select Level</option>
+            <option value="L3">L3</option>
+            <option value="L4">L4</option>
+            <option value="L5">L5</option>
+        </select>
+        <select id="attendanceCourse">
+            <option value="">Select Course</option>
+        </select>
+        <input type="text" id="attendanceName" placeholder="Student Name">
+        <button onclick="markAttendance('Present')">Present</button>
+        <button onclick="markAttendance('Absent')">Absent</button>
+
+        <table id="attendanceTable">
+            <thead>
+                <tr><th>Level</th><th>Course</th><th>Student</th><th>Status</th></tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <hr>
+
+    <!-- PAYMENTS -->
+    <div id="staffPayments">
+        <h3>Student Payments</h3>
+        <select id="paymentLevel" onchange="loadPaymentCourses()">
+            <option value="">Select Level</option>
+            <option value="L3">L3</option>
+            <option value="L4">L4</option>
+            <option value="L5">L5</option>
+        </select>
+        <select id="paymentCourse">
+            <option value="">Select Course</option>
+        </select>
+        <input type="text" id="paymentStudent" placeholder="Student Name">
+        <select id="paymentStatus">
+            <option value="Paid">Paid</option>
+            <option value="Not Paid">Not Paid</option>
+        </select>
+        <button onclick="addPayment()">Add / Update Payment</button>
+
+        <p>Total Students: <span id="totalPaymentStudents">0</span> | Paid: <span id="totalPaid">0</span> | Not Paid: <span id="totalNotPaid">0</span></p>
+        <input type="text" id="paymentSearch" placeholder="Search by student name..." oninput="filterPayments()">
+
+        <table id="paymentTable">
+            <thead>
+                <tr><th>Level</th><th>Course</th><th>Student</th><th>Status</th><th>Action</th></tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <hr>
+
+<!-- LIBRARY SECTION -->
+<div id="staffLibrary">
+    <h3>Library – Reading Books</h3>
+    <input type="file" id="uploadBook">
+    <button onclick="addBook()">Upload Book</button>
+
+    <h4>Available Books:</h4>
+    <div id="libraryList">No books uploaded yet.</div>
+</div>
+
+<hr>
+
+<!-- STORE SECTION -->
+<div id="staffStore">
+    <h3>School Store (Computers, Keyboards, Mouse, etc.)</h3>
+
+    <input type="text" id="storeItemName" placeholder="Item Name (e.g., Keyboard)">
+    <input type="number" id="storeItemQty" placeholder="Quantity">
+    <button onclick="addStoreItem()">Add Item</button>
+
+    <h4>Store Inventory:</h4>
+    <table id="storeTable">
+        <thead>
+            <tr><th>Item</th><th>Quantity</th><th>Action</th></tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
